@@ -2,7 +2,7 @@
 
 class Services:
 
-    __Names__ = {
+    __Names = {
                     "AmazonEC2": "ec2", "AmazonS3": "s3", "AmazonVPC": "ec2", "AWSLambda":"lambda", 
 		    "AmazonCloudWatch":"logs", "AmazonRDS":"rds", "AmazonES":"es", "ElasticMapReduce":"emr",
                     "AmazonDynamoDB":"dynamodb", "AmazonKinesisFirehose":"firehose", "AmazonGlacier":"glacier",
@@ -21,7 +21,12 @@ class Services:
     def GetB3ServiceName(self, Name):
         """Return the boto3 service name"""
 
-        return Services.__Names__[Name]
+        return Services.__Names[Name]
+
+    def GetServices(self):
+        """Return services as dictionary of CsvServiceName to B3ServiceName, i.e. AmazonApiGateway: apigateway"""
+
+        return Services.__Names
 
 def GetB3ServiceName(Name):
     """Return boto3 service name or None if it's not supported"""
@@ -32,3 +37,8 @@ def GetB3ServiceName(Name):
         return None
 
     return None
+
+def GetServices():
+    """Return services as dictionary, i.e. CsvServiceName:B3ServiceName"""
+
+    return Services().GetServices()
